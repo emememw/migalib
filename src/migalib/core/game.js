@@ -1,5 +1,4 @@
 module.exports = Game; 
-var domready = require("domready");
 var ResourceManager = require("../resource/resourcemanager");
 var Globals = require("./globals");
 var InputManager = require("../input/inputmanager");

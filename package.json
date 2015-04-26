@@ -1,8 +1,9 @@
 {
 	"name": "migalib",
-	"version" : "0.0.1",
+	"version" : "0.0.3",
 	"description": "MiGaLib - Minimal Game Library",
 	"author": "markus-wi",
+	"main" : "./src/migalib/core/migalib.js",
 	"dependencies": {
 		"rimraf": ">= 2.3.2",
 		"fs.extra" : ">= 1.3.2"
