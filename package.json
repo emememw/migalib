@@ -1,9 +1,25 @@
 {
 	"name": "migalib",
+	"version" : "0.0.1",
 	"description": "MiGaLib - Minimal Game Library",
 	"author": "markus-wi",
 	"dependencies": {
 		"rimraf": ">= 2.3.2",
 		"fs.extra" : ">= 1.3.2"
-	}
+	},
+	"scripts" : {
+		"build" : "node build.js"
+	},
+	"repository" : {
+		"type" : "git",
+		"url" : "https://github.com/markus-wi/migalib"
+	},
+	"bugs" : {
+		"url" : "https://github.com/markus-wi/migalib/issues"
+	},
+	"keyword" : [
+		"game",
+		"game library",
+		"game framework"
+	]
 }
