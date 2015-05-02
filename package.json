@@ -1,6 +1,6 @@
 {
 	"name": "migalib",
-	"version" : "0.0.3",
+	"version" : "0.0.5",
 	"description": "MiGaLib - Minimal Game Library",
 	"author": "markus-wi",
 	"main" : "./src/migalib/core/migalib.js",
