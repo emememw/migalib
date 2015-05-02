@@ -20,8 +20,8 @@ function Game() {
 	var canvas = document.getElementById("canvas");
 	Globals.canvas = canvas;
 	Globals.context = canvas.getContext("2d");
-	migalib.Globals.canvas.width = window.innerWidth;
-	migalib.Globals.canvas.height = window.innerHeight;
+	Globals.canvas.width = window.innerWidth;
+	Globals.canvas.height = window.innerHeight;
 	Globals.context.imageSmoothingEnabled = false;
 	Globals.context.mozImageSmoothingEnabled = false;
 	Globals.context.webkitImageSmoothingEnabled = false;
