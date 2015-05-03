@@ -37,7 +37,7 @@ Entity.prototype.render = function(delta, flipped) {
                                
 	if(flipped) {
 		Globals.context.save();
-		Globals.context.translate(Renderer.translateX(this.x)*Renderer.zoom,0);
+		Globals.context.translate(Renderer.translateX(this.x)*Renderer.getZoom(),0);
 		Globals.context.scale(-1, 1);
 		Renderer.render(this.textureArea, (this.x - this.originalWidth*this.boxScale), this.y - this.originalHeight*this.boxScale, this.originalWidth, this.originalHeight, true); 
 		Globals.context.restore();
