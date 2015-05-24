@@ -1,6 +1,7 @@
 var Migalib = module.exports = {}; 
 
 Migalib.PathFinder = require("../ai/pathfinder");
+Migalib.astar = require("../lib/astar");
 Migalib.Game = require("./game");
 Migalib.Globals = require("./globals");
 Migalib.Effect = require("../effect/effect");

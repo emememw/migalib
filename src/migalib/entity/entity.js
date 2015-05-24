@@ -52,67 +52,91 @@ Entity.prototype.render = function(delta, flipped) {
 Entity.prototype.moveTowardPoint = function(pointX, pointY, velocity, delta) {
 
 		if(this.x < pointX) {
-			if(this.x + velocity*delta > pointX) {
-			   this.x = pointX;
-			} else { 
-				this.move(Directions.right, velocity, delta);
-			}
-		} else if(this.x > pointX) {
-			if(this.x - velocity*delta < pointX) {
+			var position = this.calcMovement(Directions.right, velocity, delta);
+			if(position.x > pointX) {
 				this.x = pointX;
 			} else { 
-				this.move(Directions.left, velocity, delta);
+				this.x = position.x;
+			}
+		} else if(this.x > pointX) {
+            var position = this.calcMovement(Directions.left, velocity, delta); 
+			if(position.x < pointX) {
+				this.x = pointX;
+			} else { 
+				this.x = position.x;
 			}
 		}
 
 		if(this.y < pointY) {
-			if(this.y + velocity*delta > pointY) {
+			var position = this.calcMovement(Directions.down, velocity, delta);   
+			//console.log("up +");
+			//console.log(position.y, pointY); 
+			if(position.y > pointY) {
 				this.y = pointY;
 			} else { 
-				this.move(Directions.down, velocity, delta);
+				this.y = position.y;
 			}
+			//console.log("=>", this.y); 
 
 		} else if(this.y > pointY) {
-			if(this.y - velocity*delta < pointY) {
+			var position = this.calcMovement(Directions.up, velocity, delta);    
+			//console.log("down -");
+			//console.log(position.y, pointY);
+			if(position.y < pointY) {
 				this.y = pointY;
 			} else { 
-			this.move(Directions.up, velocity, delta);
+				this.y = position.y;
 			}
+			//console.log("=>", this.y);
 		}
 
 
 }
 
-
-Entity.prototype.move = function(direction, velocity, delta) {
-	var newX = this.x;
-	var newY = this.y
+Entity.prototype.calcMovement = function(direction, velocity, delta) {
+	var result = {
+		x : this.x,
+		y : this.y
+	};
+	var newX = result.x;
+	var newY = result.y
 	if(direction === Directions.right) {
-		newX = this.x + velocity * delta;
-		
+		newX = result.x + velocity * delta;
+
 	} else if(direction === Directions.left) {
-		newX = this.x - velocity * delta;
+		newX = result.x - velocity * delta;
 	} else if(direction === Directions.down) {
-		newY = this.y + velocity * delta;
+		newY = result.y + velocity * delta;
 	} else if(direction === Directions.up) {
-		newY = this.y - velocity * delta;
+		newY = result.y - velocity * delta;
 	}
 	if(!this.checkIfCollidingWithTile(newX, newY)) {
-		this.x = newX;
-		this.y = newY;
+		result.x = newX;
+		result.y = newY;
 		this.checkIfCollidingWithEntity(newX, newY);
 	} else {
 		if(direction === Directions.right) {
-			this.x = parseInt((newX+this.width)/Globals.tileSize)*Globals.tileSize-this.width;
+			result.x = parseInt((newX+this.width)/Globals.tileSize)*Globals.tileSize-this.width;
 		} else if(direction === Directions.left) {
-			this.x = parseInt(newX/Globals.tileSize)*Globals.tileSize+Globals.tileSize;
+			result.x = parseInt(newX/Globals.tileSize)*Globals.tileSize+Globals.tileSize;
 		} else if(direction === Directions.down) {
-			this.y = parseInt((newY+this.height)/Globals.tileSize)*Globals.tileSize-this.height;
+			result.y = parseInt((newY+this.height)/Globals.tileSize)*Globals.tileSize-this.height;
 		} else if(direction === Directions.up) {
-			this.y = parseInt(newY/Globals.tileSize)*Globals.tileSize+Globals.tileSize;
+			result.y = parseInt(newY/Globals.tileSize)*Globals.tileSize+Globals.tileSize;
 		}  
 	}
+	result.x = parseInt(result.x);
+	result.y = parseInt(result.y);
+	return result;
 }
+
+
+Entity.prototype.move = function(direction, velocity, delta) {
+	var position = this.calcMovement(direction, velocity, delta);
+	this.x = position.x;
+	this.y = position.y;
+}
+
 
 Entity.prototype.update = function(delta) {
 }

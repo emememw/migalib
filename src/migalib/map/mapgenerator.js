@@ -14,7 +14,7 @@ MapGenerator.generate = function(width, height) {
 		for(var y = 0; y < height; y++) {
 			if(x === 0 || x === width -1 || y === 0 || y === height-1) {
 				tiles[x][y] = new WallTile(x*Globals.tileSize, y*Globals.tileSize);
-			}  else if(x === 10 && y === 10) {
+			}  else if(x !== 4 && x >= 0 && x < width && y === 3) {
 				tiles[x][y] = new WallTile(x*Globals.tileSize, y*Globals.tileSize); 
 			} else if(x === 12 && y === 10) {
 				tiles[x][y] = new WallTile(x*Globals.tileSize, y*Globals.tileSize); 

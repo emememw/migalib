@@ -46,7 +46,8 @@ Map.prototype.generateGraph = function() {
 			
 		}
 	}
-	return new astar.Graph(matrix);
+	this.matrix = matrix;
+	return new astar.Graph(matrix, { diagonal : false});
 }
 
 Map.prototype.getTilesAtPosition = function(rect) {
