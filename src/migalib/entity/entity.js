@@ -49,17 +49,17 @@ Entity.prototype.render = function(delta, flipped) {
 }
 
 
-Entity.prototype.moveTowardPoint = function(pointX, pointY, velocity, delta) {
+Entity.prototype.moveTowardPoint = function(pointX, pointY, velocity, delta, deactivateCollisionDetection) {
 
 		if(this.x < pointX) {
-			var position = this.calcMovement(Directions.right, velocity, delta);
+			var position = this.calcMovement(Directions.right, velocity, delta, deactivateCollisionDetection);
 			if(position.x > pointX) {
 				this.x = pointX;
 			} else { 
 				this.x = position.x;
 			}
 		} else if(this.x > pointX) {
-            var position = this.calcMovement(Directions.left, velocity, delta); 
+            var position = this.calcMovement(Directions.left, velocity, delta, deactivateCollisionDetection); 
 			if(position.x < pointX) {
 				this.x = pointX;
 			} else { 
@@ -68,7 +68,7 @@ Entity.prototype.moveTowardPoint = function(pointX, pointY, velocity, delta) {
 		}
 
 		if(this.y < pointY) {
-			var position = this.calcMovement(Directions.down, velocity, delta);   
+			var position = this.calcMovement(Directions.down, velocity, delta, deactivateCollisionDetection);   
 			//console.log("up +");
 			//console.log(position.y, pointY); 
 			if(position.y > pointY) {
@@ -79,7 +79,7 @@ Entity.prototype.moveTowardPoint = function(pointX, pointY, velocity, delta) {
 			//console.log("=>", this.y); 
 
 		} else if(this.y > pointY) {
-			var position = this.calcMovement(Directions.up, velocity, delta);    
+			var position = this.calcMovement(Directions.up, velocity, delta, deactivateCollisionDetection);    
 			//console.log("down -");
 			//console.log(position.y, pointY);
 			if(position.y < pointY) {
@@ -93,7 +93,7 @@ Entity.prototype.moveTowardPoint = function(pointX, pointY, velocity, delta) {
 
 }
 
-Entity.prototype.calcMovement = function(direction, velocity, delta) {
+Entity.prototype.calcMovement = function(direction, velocity, delta, deactivateCollisionDetection) {
 	var result = {
 		x : this.x,
 		y : this.y
@@ -110,7 +110,7 @@ Entity.prototype.calcMovement = function(direction, velocity, delta) {
 	} else if(direction === Directions.up) {
 		newY = result.y - velocity * delta;
 	}
-	if(!this.checkIfCollidingWithTile(newX, newY)) {
+	if(deactivateCollisionDetection || !this.checkIfCollidingWithTile(newX, newY)) {
 		result.x = newX;
 		result.y = newY;
 		this.checkIfCollidingWithEntity(newX, newY);
