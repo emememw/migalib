@@ -14,26 +14,39 @@ Renderer.cameraOffsetY = 0;
 Renderer.followingEntity = undefined;
 
 Renderer.render = function(textureArea, x, y, width, height, centeredX, centeredY) {
-	if(textureArea !== undefined && Renderer.followingEntity !== undefined) {
-		if(x >= Renderer.followingEntity.x - Globals.canvas.width/Renderer.getZoom() 
-				&& x <= Renderer.followingEntity.x + Globals.canvas.width/Renderer.getZoom()
-				&& y >= Renderer.followingEntity.y - Globals.canvas.height/Renderer.getZoom() 
-				&& y <= Renderer.followingEntity.y + Globals.canvas.height/Renderer.getZoom()) {
-
-			var cameraX = Renderer.translateX(x);
-			var cameraY = Renderer.translateY(y);
-
+	if(textureArea !== undefined) {
+		if(Renderer.followingEntity !== undefined) {
+			if(x >= Renderer.followingEntity.x - Globals.canvas.width/Renderer.getZoom() 
+					&& x <= Renderer.followingEntity.x + Globals.canvas.width/Renderer.getZoom()
+					&& y >= Renderer.followingEntity.y - Globals.canvas.height/Renderer.getZoom() 
+					&& y <= Renderer.followingEntity.y + Globals.canvas.height/Renderer.getZoom()) {
+	
+				var cameraX = Renderer.translateX(x);
+				var cameraY = Renderer.translateY(y);
+	
+				Globals.context.drawImage(
+						textureArea.image,
+						textureArea.x * Globals.splitSize,
+						textureArea.y * Globals.splitSize,
+						Globals.splitSize,
+						Globals.splitSize,
+						(!centeredX ? cameraX*Renderer.getZoom() : -(width*Renderer.getZoom())) + Renderer.cameraOffsetX,
+						(!centeredY ? cameraY*Renderer.getZoom() : -(height*Renderer.getZoom())) + Renderer.cameraOffsetY,
+						!centeredX ? width*Renderer.getZoom() : width*Renderer.getZoom(),
+						!centeredY ? height*Renderer.getZoom() : height*Renderer.getZoom()
+						);
+			} 
+		} else {
 			Globals.context.drawImage(
-					textureArea.image,
-					textureArea.x * Globals.splitSize,
-					textureArea.y * Globals.splitSize,
-					Globals.splitSize,
-					Globals.splitSize,
-					(!centeredX ? cameraX*Renderer.getZoom() : -(width*Renderer.getZoom())) + Renderer.cameraOffsetX,
-					(!centeredY ? cameraY*Renderer.getZoom() : -(height*Renderer.getZoom())) + Renderer.cameraOffsetY,
-					!centeredX ? width*Renderer.getZoom() : width*Renderer.getZoom(),
-					!centeredY ? height*Renderer.getZoom() : height*Renderer.getZoom()
-					);
+				textureArea.image,
+				textureArea.x * Globals.splitSize,
+				textureArea.y * Globals.splitSize,
+				Globals.splitSize,
+				Globals.splitSize,
+				x, y,
+				!centeredX ? width*Renderer.getZoom() : width*Renderer.getZoom(),
+						!centeredY ? height*Renderer.getZoom() : height*Renderer.getZoom()	
+				);
 		}
 	}
 

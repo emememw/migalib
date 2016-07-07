@@ -15,19 +15,34 @@ var EffectManager = require("../effect/effectmanager");
 var ScreenShake = require("../effect/screenshake");
 var GameScreen = require("../screen/gamescreen");
 
-function Game() {
+function Game(width, height) {
+	this.preparePage(width, height);
 	ResourceManager.init();
-	var canvas = document.getElementById("canvas");
+	InputManager.init();  
+}
+
+Game.prototype.preparePage = function preparePage(width, height) {
+	document.documentElement.style.height = "100%"
+	document.body.style.height = "100%";
+	document.body.style.backgroundColor = "#111";
+	var wrapperDiv = document.createElement("div");
+	wrapperDiv.style.display = "flex";
+	wrapperDiv.style.height = "100%";
+	wrapperDiv.style.width = "100%";
+	wrapperDiv.style.alignItems = "center";
+	wrapperDiv.style.justifyContent = "center";
+	var canvas = document.createElement("canvas");
+	canvas.width = width;
+	canvas.height = height;
+	wrapperDiv.appendChild(canvas);
+	document.body.appendChild(wrapperDiv);
 	Globals.canvas = canvas;
 	Globals.context = canvas.getContext("2d");
-	Globals.canvas.width = window.innerWidth;
-	Globals.canvas.height = window.innerHeight;
 	Globals.context.imageSmoothingEnabled = false;
 	Globals.context.mozImageSmoothingEnabled = false;
 	Globals.context.webkitImageSmoothingEnabled = false;
 	Globals.context.msImageSmoothingEnabled = false;
 	Globals.context.imageSmoothingEnabled = false;
-	InputManager.init();  
 }
 
 Game.prototype.init = function() {

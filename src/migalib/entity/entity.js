@@ -143,15 +143,17 @@ Entity.prototype.update = function(delta) {
 
 Entity.prototype.checkIfCollidingWithTile = function(newX, newY) {
 	var blocked = false;
-	var tiles = MapManager.currentMap.getTilesAtPosition(new Rect(newX, newY, this.width, this.height));
-	tiles.forEach((function (entity) {
-		return function(tile) {
-			entity.onTileCollision(tile);
-			if(!tile.accessible) {
-				blocked = true;
+	if(MapManager.currentMap) {
+		var tiles = MapManager.currentMap.getTilesAtPosition(new Rect(newX, newY, this.width, this.height));
+		tiles.forEach((function (entity) {
+			return function(tile) {
+				entity.onTileCollision(tile);
+				if(!tile.accessible) {
+					blocked = true;
+				}
 			}
-		}
-	}(this)));
+		}(this)));
+	}
 
 	return blocked;
 }

@@ -1,7 +1,5 @@
 var ResourceManager = module.exports = {};
 
-
-
 ResourceManager.sounds = [];
 ResourceManager.music = [];
 ResourceManager.images = [];
@@ -21,10 +19,12 @@ ResourceManager.loadMusic = function() {
 };
 
 ResourceManager.loadImages = function() {
-	ResourceManager.images["tiles"] = new Image();
-	ResourceManager.images["tiles"].src = "res/images/tiles.png";
-	ResourceManager.images["sprites"] = new Image();
-	ResourceManager.images["sprites"].src = "res/images/sprites.png";
+};
+
+ResourceManager.loadImage = function loadImage(identifier, source) {
+	const image = new Image();
+	image.src = source;
+	ResourceManager[identifier] = image;
 };
 
 
